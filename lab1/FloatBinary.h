@@ -32,5 +32,12 @@ public:
 	char GetFirst() {
 		return first;
 	}
+
+
+	void FromBinaryToDecimal();
+
+	double GetDecimal() {
+		return number;
+	}
 };
 

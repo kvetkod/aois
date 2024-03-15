@@ -22,6 +22,7 @@ private:
 	bool Comparison(string number1, string number2);
 	string DivisionHelper(string number1, string number2);
 	int ZeroRemover(string& number);
+	bool check(string, string);
 public:
 	Operation(int number1, int number2) : d_number1(number1), d_number2(number2) {};
 	Operation(double number1, double number2) : f_number1(number1), f_number2(number2) {};

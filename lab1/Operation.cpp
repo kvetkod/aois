@@ -287,6 +287,35 @@ int Operation::ZeroRemover(string& number) {
 	return k;
 }
 
+bool Operation::check(string a, string b)
+{
+	if (a.length() < b.length()) {
+		int size = b.length();
+		for (int i = 0; i < a.length() - size; i++) {
+			a = '0' + a;
+		}
+	}
+	else if (a.length() > b.length())
+	{
+		int size = a.length();
+		for (int i = 0; i < b.length() - size; i++) {
+			b = '0' + b;
+		}
+	}
+	for (int i = 0; i < a.length(); i++)
+	{
+		if (a[i] > b[i])
+		{
+			return true;
+		}
+		else if (a[i] < b[i])
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 
 string Operation::Division() {
 	Binary num1(d_number1), num2(d_number2);
@@ -310,92 +339,53 @@ string Operation::Division() {
 
 
 
-	string result = ""; bool flag = false; int count = 0;
-	string ostatok = ""; int k = -1;
-	if (number2.length() > number1.length()) {
-		result = "0."; k = 0;
-		for (int i = 0; i < number2.length() - number1.length(); i++) {
-			number1 += '0';
-		}
-		ostatok = number1;
-		number1 = "0";
-	}
-	else {
-		for (int i = 0; i < number2.length(); i++) {
-			ostatok += number1[i];
-		}
-		for (int i = 0; i < number2.length(); i++) {
+	string result; bool flag = false; int count = 0;
+	string ostatok; int k = -1;
+
+
+
+	bool checker = 1;
+	for (int i = 0; i < 25; ++i)
+	{
+		if (number1[0]) {
+			ostatok.push_back(number1[0]);
 			number1.erase(0, 1);
 		}
-	}
-
-
-	while (k < 6) {
-
-		if (ostatok.length() > number2.length() || Comparison(ostatok, number2)) {
-			count = 0;
-			flag = false;
-			result += '1';
+		if (check(ostatok, number2))
+		{
 			ostatok = DivisionHelper(ostatok, number2);
-		}
-		else {
-
-			if (number1.size() == 0 && ostatok[0] == '0' && ostatok.length() == 1) {
-				break;
-			}
-
-
-			if (number1.length() == 0) {
-
-				if (k == -1) {
-					k++;
-					result += '.';
-				}
-
-				number1 += '0';
-
-			}
-			if (number1.length() != 0) {
-				if (number1[0] == '1') {
-					ostatok += number1[0];
-					number1.erase(0, 1);
-
-				}
-				else {
-					bool check = false;
-
-					for (int i = 0; i < ostatok.length(); i++) {
-						if (ostatok[i] == '1') {
-							check = true; break;
-						}
-
-					}
-					if (check) {
-						count = 0;
-						ostatok += number1[0];
-						number1.erase(0, 1);
-					}
-					else {
-						if (number1.length() == 1) count++;
-						number1.erase(0, 1);
-
-					}
-				}
-				if (flag) {
-					result += '0';
-				}
-				else flag = false;
+			result.push_back('1');
+			if (!checker) {
+				ostatok.push_back('0');
 			}
 		}
-		if (k > -1) {
-			k++;
+		else
+		{
+			result.push_back('0');
+			if (!checker)
+			{
+				ostatok.push_back('0');
+			}
+		}
+		if (number1.empty() and checker)
+		{
+			checker = 0;
+			result.push_back('.');
+			ostatok.push_back('0');
 		}
 	}
 
+	string result_; count = -1;
+	for (int i = 0; i < result.size(); i++) {
+		if (result[i] == '.') count = 0;
+		if (count == 6) break;
+		if (count != -1) count++;
+		result_.push_back(result[i]);
+	}
 
 
-	result = symbol + result;
-	return result;
+	result_ = symbol + result_;
+	return result_;
 }
 
 

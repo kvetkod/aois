@@ -48,3 +48,28 @@ void FloatNumber::DirectCode() {
 	}
 	mantissa.erase(remove(mantissa.begin(), mantissa.end(), '\0'), mantissa.end());
 }
+
+
+void FloatNumber::FromBinaryToDecimal() {
+
+	Binary number_('0' + exp, 1);
+	number_.FromBinaryToDecimal();
+	int number1 = number_.GetDecimalNumber() - 127;
+
+	string result = "1";
+	for (int i = 0; i < number1; i++) {
+		result.push_back(mantissa[i]);
+	}
+	for (int i = 0; i < number1; i++) {
+		mantissa.erase(0, 1);
+	}
+	Binary number2('0' + result, 1);
+	number2.FromBinaryToDecimal();
+	number = number2.GetDecimalNumber();
+
+	for (int i = 0; i < mantissa.size(); i++) {
+		if (mantissa[i] == '1') {
+			number += pow(2, -(i + 1));
+		}
+	}
+}
