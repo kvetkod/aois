@@ -24,11 +24,21 @@ void Binary::FromBinaryToDecimal() {
 	bool flag = true;
 	if (b_number[0] == '1') flag = false;
 	int k = 0;
+	int index = -1; bool count = false;
+	index = b_number.find( '.');
+	if (index != -1) count = false;
+	else count = true;
+	
 	for (int i = b_number.length() - 1; i > 0; i--) {
-		if (b_number[i] == '1') {
-			d_number += pow(2, k);
+		if (b_number[i] == '.') {
+			count = true; continue;
 		}
-		k++;
+		if (count) {
+			if (b_number[i] == '1') {
+				d_number += pow(2, k);
+			}
+			k++;
+		}
 	}
 	if (!flag) d_number *= (-1);
 }
