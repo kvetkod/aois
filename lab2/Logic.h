@@ -10,8 +10,8 @@ class Logic
 private:
 	int atomar_formula = 0;
 	vector<bool> index_form;
-	vector<int> numeric_form0;
-	vector<int> numeric_form1;
+	vector<int> numeric_form_sknf;
+	vector<int> numeric_form_sdnf;
 	string sknf, sdnf;
 	int col, rows;
 	string atomar;
@@ -25,8 +25,8 @@ private:
 	void solve(string formula, int& index, int rows);
 public:
 	~Logic();
-	void table_of_truth(string formula);
-	void print_table();
+	void TableOfTruth(string formula);
+	void PrintTable();
 	void IndexForm();
 	void NumericForm();
 	void PrintIndexForm();

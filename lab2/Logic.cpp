@@ -123,17 +123,17 @@ void Logic::solve(string formula, int& index, int rows) {
 
 
 
-void Logic::table_of_truth(string formula) {
-	int n1 = cols(formula); //столбец, сначала строка, потом столбец
-	rows = pow(2, atomar_formula); //строка
-	col = n1;
+void Logic::TableOfTruth(string formula) {
+	col = cols(formula); 
+	rows = pow(2, atomar_formula); 
+	
 
 	table = new bool* [rows];
 	for (int i = 0; i < rows; i++) {
-		table[i] = new bool[n1];
+		table[i] = new bool[col];
 	}
 	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < n1; j++) {
+		for (int j = 0; j < col; j++) {
 			table[i][j] = 0;
 		}
 	}
@@ -154,35 +154,27 @@ void Logic::table_of_truth(string formula) {
 		rows1 = rows1 / 2;
 	}
 
-	int index = -1, k = 0;
+	int index = -1; count = 0;
 	string formula1;
 	index = formula.find('!');
 
 	while (index!=-1) {
 		
 		if (formula[index + 1] != '(') {
-			k++;
+			count++;
 			formula1.push_back('!');
 			formula1.push_back(formula[index + 1]);
 			formula.erase(index + 1, 1);
-			formula[index] = static_cast<char>(k + '0');
-			atomar.push_back(static_cast<char>(k+'0'));
+			formula[index] = static_cast<char>(count + '0');
+			atomar.push_back(static_cast<char>(count+'0'));
 			solve(formula1, j, rows);
 		}
 		formula1.clear();
 		index = formula.find('!');
 	}
 
-
-
-
-	
-
-
-
-	
-	//vector<string>  formules;
-	 count = 0;
+	int count1 = count;
+	count = 0;
 
 	for (int i = 0; i < formula.length(); i++) {
 		if (formula.length() == 0) break;
@@ -198,33 +190,24 @@ void Logic::table_of_truth(string formula) {
 			continue;
 		}
 		if (formula[i] == ')') {
-			k++;
-			atomar.push_back(static_cast<char>(k+'0'));
-			//int size = i;
+			count1++;
+			atomar.push_back(static_cast<char>(count1+'0'));
 			for (int ii = i - count; ii < i; ii++) {
-				//formula1.push_back(formula[ii]);
 				formula.erase(ii, 1);
 				i--;
 				ii--;
 			}
 			formula.erase(i, 1);
-			//i--;
 			formula[i - 1] = atomar[atomar.length() - 1];
 			solve(formula1, j, rows);
 			i = -1;
 
 		}
 	}
-
-
-	
-
-
-	
 }
 
 
-void Logic::print_table() {
+void Logic::PrintTable() {
 	cout << atomar << endl;
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < col; j++) {
@@ -256,9 +239,9 @@ void Logic::NumericForm() {
 
 	for (int i = 0; i < index_form.size(); i++) {
 		if (index_form[i] == 0) {
-			numeric_form0.push_back(i);
+			numeric_form_sknf.push_back(i);
 		}
-		else numeric_form1.push_back(i);
+		else numeric_form_sdnf.push_back(i);
 	}
 
 
@@ -273,30 +256,30 @@ void Logic::PrintIndexForm() {
 
 
 void Logic::PrintNumericForm() {
-	for (int i = 0; i < numeric_form0.size(); i++) {
-		cout << numeric_form0[i] << " ";
+	for (int i = 0; i < numeric_form_sknf.size(); i++) {
+		cout << numeric_form_sknf[i] << " ";
 	}
 	cout << '&' << endl;
-	for (int i = 0; i < numeric_form1.size(); i++) {
-		cout << numeric_form1[i] << " ";
+	for (int i = 0; i < numeric_form_sdnf.size(); i++) {
+		cout << numeric_form_sdnf[i] << " ";
 	}
 	cout << "|" << endl;
 }
 
 void Logic::SKNF() {
-	if (numeric_form0.size() == 0) NumericForm();
+	if (numeric_form_sknf.size() == 0) NumericForm();
 
-	for (int i = 0; i < numeric_form0.size(); i++) {
+	for (int i = 0; i < numeric_form_sknf.size(); i++) {
 		sknf.push_back('(');
 		for (int j = 0; j < atomar_formula; j++) {
-			if (table[numeric_form0[i]][j] == 1) {
+			if (table[numeric_form_sknf[i]][j] == 1) {
 				sknf.push_back('!');
 			}
 			sknf.push_back(atomar[j]);
 			if (j != atomar_formula-1) sknf.push_back('|');
 		}
 		sknf.push_back(')');
-		if (i != numeric_form0.size()-1) sknf.push_back('&');
+		if (i != numeric_form_sknf.size()-1) sknf.push_back('&');
 	}
 
 
@@ -304,19 +287,19 @@ void Logic::SKNF() {
 }
 
 void Logic::SDNF() {
-	if (numeric_form1.size() == 0) NumericForm();
+	if (numeric_form_sdnf.size() == 0) NumericForm();
 
-	for (int i = 0; i < numeric_form1.size(); i++) {
+	for (int i = 0; i < numeric_form_sdnf.size(); i++) {
 		sdnf.push_back('(');
 		for (int j = 0; j < atomar_formula; j++) {
-			if (table[numeric_form1[i]][j] == 0) {
+			if (table[numeric_form_sdnf[i]][j] == 0) {
 				sdnf.push_back('!');
 			}
 			sdnf.push_back(atomar[j]);
 			if (j != atomar_formula - 1) sdnf.push_back('&');
 		}
 		sdnf.push_back(')');
-		if (i != numeric_form1.size() - 1) sdnf.push_back('|');
+		if (i != numeric_form_sdnf.size() - 1) sdnf.push_back('|');
 	}
 
 

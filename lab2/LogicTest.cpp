@@ -16,13 +16,13 @@ namespace UnitTest1
 		TEST_METHOD(CreateTable1Test)
 		{
 			Logic a;
-			a.table_of_truth("!a");
+			a.TableOfTruth("!a");
 			
 		}
 		TEST_METHOD(DisTest)
 		{
 			Logic a;
-			a.table_of_truth("(a|b)");
+			a.TableOfTruth("(a|b)");
 			a.IndexForm();
 			stringstream buf;
 			streambuf* oldbuf = cout.rdbuf(buf.rdbuf());
@@ -39,7 +39,7 @@ namespace UnitTest1
 		TEST_METHOD(EqualTest)
 		{
 			Logic a;
-			a.table_of_truth("(a~b)");
+			a.TableOfTruth("(a~b)");
 			a.IndexForm();
 			stringstream buf;
 			streambuf* oldbuf = cout.rdbuf(buf.rdbuf());
@@ -54,7 +54,7 @@ namespace UnitTest1
 		}
 		TEST_METHOD(IndexTest) {
 			Logic a;
-			a.table_of_truth("(a->b)");
+			a.TableOfTruth("(a->b)");
 			a.IndexForm();
 			stringstream buf;
 			streambuf* oldbuf = cout.rdbuf(buf.rdbuf());
@@ -69,7 +69,7 @@ namespace UnitTest1
 		TEST_METHOD(CreateTable5Test)
 		{
 			Logic a;
-			a.table_of_truth("(a&b)");
+			a.TableOfTruth("(a&b)");
 			a.IndexForm();
 			stringstream buf;
 			streambuf* oldbuf = cout.rdbuf(buf.rdbuf());
@@ -83,7 +83,7 @@ namespace UnitTest1
 		}
 		TEST_METHOD(IndexFormTest) {
 			Logic a;
-			a.table_of_truth("(a&b)");
+			a.TableOfTruth("(a&b)");
 			a.IndexForm();
 			stringstream buf;
 			streambuf* oldbuf = cout.rdbuf(buf.rdbuf());
@@ -97,7 +97,7 @@ namespace UnitTest1
 		}
 		TEST_METHOD(NumericFormTest) {
 			Logic a;
-			a.table_of_truth("(a&b)");
+			a.TableOfTruth("(a&b)");
 			a.NumericForm();
 			stringstream buf;
 			streambuf* oldbuf = cout.rdbuf(buf.rdbuf());
@@ -116,7 +116,7 @@ namespace UnitTest1
 
 		TEST_METHOD(SKNFTest) {
 			Logic a;
-			a.table_of_truth("(a&b)");
+			a.TableOfTruth("(a&b)");
 			
 			stringstream buf;
 			streambuf* oldbuf = cout.rdbuf(buf.rdbuf());
@@ -133,7 +133,7 @@ namespace UnitTest1
 
 		TEST_METHOD(SDNFTest) {
 			Logic a;
-			a.table_of_truth("(a&b)");
+			a.TableOfTruth("(a&b)");
 
 			stringstream buf;
 			streambuf* oldbuf = cout.rdbuf(buf.rdbuf());
