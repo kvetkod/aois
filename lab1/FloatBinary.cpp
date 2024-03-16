@@ -2,7 +2,7 @@
 
 string FloatNumber::DirectCodeForExp() {
 	double number_;
-	double a = modf(number, &number_);
+	double num1 = modf(number, &number_);
 	Binary num(number_);
 	num.DirectCode();
 	string floatnumber = num.GetBinaryNumber();
@@ -11,9 +11,8 @@ string FloatNumber::DirectCodeForExp() {
 
 void FloatNumber::DirectCodeForMantissa() {
 	string result = "";
-	double number_, a, k;
-	//double dot_number = number;
-	number_ = modf(number, &a);
+	double number_, num1;
+	number_ = modf(number, &num1);
 	while (number_ != 0) {
 		number_ = number_ * 2;
 		if (number_ < 1)

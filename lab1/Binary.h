@@ -14,8 +14,6 @@ private:
 public:
 	Binary(int number) : d_number(number) {};
 	Binary(string number, int method_) : b_number(number), method(method_) {};
-	//BinaryWithDot GetFloatNumber();
-	//void CodeForBinaryWithDot();
 	void DirectCode();
 	void ReverseCode();
 	void AdditionalCode();

@@ -23,7 +23,7 @@ void Binary::FromBinaryToDecimal() {
 	}
 	bool flag = true;
 	if (b_number[0] == '1') flag = false;
-	int k = 0;
+	int power = 0;
 	int index = -1; bool count = false;
 	index = b_number.find( '.');
 	if (index != -1) count = false;
@@ -35,9 +35,9 @@ void Binary::FromBinaryToDecimal() {
 		}
 		if (count) {
 			if (b_number[i] == '1') {
-				d_number += pow(2, k);
+				d_number += pow(2, power);
 			}
-			k++;
+			power++;
 		}
 	}
 	if (!flag) d_number *= (-1);
@@ -45,14 +45,14 @@ void Binary::FromBinaryToDecimal() {
 
 void Binary::DirectCode() {
 	method = 1;
-	int n = abs(d_number);
+	int num = abs(d_number);
 	string result = "";
 
-	while (n > 0) {
-		if (n == 1) { result = '1' + result; break; }
-		if (n % 2 == 1) result = '1' + result;
-		if (n % 2 == 0) result = '0' + result;
-		n = n / 2;
+	while (num > 0) {
+		if (num == 1) { result = '1' + result; break; }
+		if (num % 2 == 1) result = '1' + result;
+		if (num % 2 == 0) result = '0' + result;
+		num = num / 2;
 	}
 	if (d_number > 0) result = '0' + result;
 	else result = '1' + result;

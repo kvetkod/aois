@@ -123,7 +123,6 @@ string Operation::Sum() {
 	}
 
 
-
 	string result = "";
 	bool flag = false;
 	result = SumHelper(b_number1, b_number2, flag);
@@ -205,17 +204,7 @@ string Operation::Multiplication() {
 	return first;
 }
 
-bool Operation::Comparison(string number1, string number2) {
-	if (number1.length() < number2.length()) {
-		return false;
-	}
-	for (int i = 0; i < number2.length(); i++) {
-		if (number1[i] == '1' && number2[i] == '0') return true;
-		if (number1[i] == '0' && number2[i] == '1')
-			return false;
-	}
-	return true;
-}
+
 
 string Operation::DivisionHelper(string number1, string number2) {
 	bool flag = false;
@@ -277,38 +266,38 @@ string Operation::DivisionHelper(string number1, string number2) {
 
 int Operation::ZeroRemover(string& number) {
 	if (number.length() == 1) return 0;
-	int k = 0;
+	int zero_count = 0;
 	for (int i = 0; i < number.length() - 1; i++) {
-		if (number[i] != '0') return k;
+		if (number[i] != '0') return zero_count;
 		number.erase(0, 1);
-		k++;
+		zero_count++;
 		i--;
 	}
-	return k;
+	return zero_count;
 }
 
-bool Operation::check(string a, string b)
+bool Operation::check(string num1, string num2)
 {
-	if (a.length() < b.length()) {
-		int size = b.length();
-		for (int i = 0; i < a.length() - size; i++) {
-			a = '0' + a;
+	if (num1.length() < num2.length()) {
+		int size = num2.length();
+		for (int i = 0; i < num1.length() - size; i++) {
+			num1 = '0' + num1;
 		}
 	}
-	else if (a.length() > b.length())
+	else if (num1.length() > num2.length())
 	{
-		int size = a.length();
-		for (int i = 0; i < b.length() - size; i++) {
-			b = '0' + b;
+		int size = num1.length();
+		for (int i = 0; i < num2.length() - size; i++) {
+			num2 = '0' + num2;
 		}
 	}
-	for (int i = 0; i < a.length(); i++)
+	for (int i = 0; i < num1.length(); i++)
 	{
-		if (a[i] > b[i])
+		if (num1[i] > num2[i])
 		{
 			return true;
 		}
-		else if (a[i] < b[i])
+		else if (num1[i] < num2[i])
 		{
 			return false;
 		}
@@ -327,7 +316,7 @@ string Operation::Division() {
 	if (b_number1[0] == '0' && b_number2[0] == '1') symbol = '1';
 	string number1 = b_number1, number2 = b_number2;
 	number2.erase(0, 1); number1.erase(0, 1);
-
+	if (number2 == "0") return "";
 	for (int i = 0; i < number1.length(); i++) {
 		if (number1[i] != '0') break;
 		number1.erase(0, 1);
@@ -340,7 +329,7 @@ string Operation::Division() {
 
 
 	string result; bool flag = false; int count = 0;
-	string ostatok; int k = -1;
+	string ostatok; 
 
 
 
@@ -383,7 +372,6 @@ string Operation::Division() {
 		result_.push_back(result[i]);
 	}
 
-
 	result_ = symbol + result_;
 	return result_;
 }
@@ -401,14 +389,14 @@ string Operation::SumForFloat() {
 	if (count1 != count2)
 	{
 		if (count1 > count2) {
-			exp = exp2;
+			exp = exp1;
 			mantissa2 = num2.GetFirst() + mantissa2;
 			for (int i = 1; i < count1 - count2; i++) {
 				mantissa2 = '0' + mantissa2;
 			}
 		}
 		if (count1 < count2) {
-			exp = exp1;
+			exp = exp2;
 			mantissa1 = num1.GetFirst() + mantissa1; 
 			for (int i = 1; i < count2 - count1; i++) {
 				mantissa1 = '0' + mantissa1;
@@ -421,13 +409,12 @@ string Operation::SumForFloat() {
 	SameSizeHelper(mantissa1, mantissa2);
 	reverse(mantissa1.begin(), mantissa1.end());
 	reverse(mantissa2.begin(), mantissa2.end());
-	//mantissa1.erase(0, 1); mantissa2.erase(0, 1);
 	bool flag = false;
 	string result = SumHelper(mantissa1, mantissa2, flag);
 	if (flag) {
 		flag = false;
-		result = '0' + result;
-		string exp = SumHelper(exp, "00000001", flag);
+		result = '1' + result;
+		exp = SumHelper(exp, "00000001", flag);
 	}
 	FloatNumber number(exp, result);
 	number.Print();

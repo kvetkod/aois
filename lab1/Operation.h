@@ -19,7 +19,6 @@ private:
 	int SameSize(string& number1, string& number2, int method1, int method2);
 	void SameSizeHelper(string& number1, string& number2);
 	string MultiplicationHelper(string number1, char number2, int i, int size);
-	bool Comparison(string number1, string number2);
 	string DivisionHelper(string number1, string number2);
 	int ZeroRemover(string& number);
 	bool check(string, string);
