@@ -19,6 +19,8 @@ private:
 public:
 	FloatNumber(string exp_, string mantissa_) : exp(exp_), mantissa(mantissa_) {};
 	FloatNumber(double number_) : number(number_) {};
+	void SetFirst(char symbol) { first = symbol; };
+
 	void Print() {
 		cout << symbol << "|" << exp << "|" << mantissa << endl;
 	}

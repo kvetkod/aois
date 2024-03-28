@@ -380,6 +380,7 @@ string Operation::Division() {
 string Operation::SumForFloat() {
 	FloatNumber num1(f_number1), num2(f_number2);
 	num1.DirectCode(); num2.DirectCode();
+	char first1 = '1'; char first2 = '1';
 	string exp1 = num1.GetExp(), exp2 = num2.GetExp();
 	string mantissa1 = num1.GetMantissa(), mantissa2 = num2.GetMantissa();
 	Binary number1('0' + exp1, 1), number2('0' + exp2, 1);
@@ -394,6 +395,8 @@ string Operation::SumForFloat() {
 			for (int i = 1; i < count1 - count2; i++) {
 				mantissa2 = '0' + mantissa2;
 			}
+			first2 = '0';
+
 		}
 		if (count1 < count2) {
 			exp = exp2;
@@ -401,6 +404,7 @@ string Operation::SumForFloat() {
 			for (int i = 1; i < count2 - count1; i++) {
 				mantissa1 = '0' + mantissa1;
 			}
+			first1 = '0';
 		}
 	}
 	reverse(mantissa1.begin(), mantissa1.end());
@@ -412,9 +416,21 @@ string Operation::SumForFloat() {
 	bool flag = false;
 	string result = SumHelper(mantissa1, mantissa2, flag);
 	if (flag) {
-		flag = false;
-		result = '1' + result;
-		exp = SumHelper(exp, "00000001", flag);
+		if (first1 == '1' and first2 == '1') {
+			result = '1' + result;
+			flag = false;
+			exp = SumHelper(exp, "00000001", flag);
+		}
+		if (first1 == '1' and first2 == '0') {
+			result = '0' + result;
+			flag = false;
+			exp = SumHelper(exp, "00000001", flag);
+		}
+		if (first1 == '0' and first2 == '1') {
+			result = '0' + result;
+			flag = false;
+			exp = SumHelper(exp, "00000001", flag);
+		}
 	}
 	FloatNumber number(exp, result);
 	number.Print();
