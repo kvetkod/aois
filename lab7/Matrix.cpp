@@ -237,3 +237,127 @@ void Matrix::Sum(string key) {
 	cout << first << "  " << second << "  " << result << endl;
 	cout << this->GetWord(index);
 }
+
+bool Matrix::search(string word1, string word2) {
+	int g0, l0; g0 = 0; l0 = 0;
+	int g, l;
+	for (int i = 0; i < 16; i++) {
+		if ((word1[i] == '0' and word2[i] == '1' and l0 == 0)) g = 1;
+		else if (g0 == 1) g = 1;
+		else g = 0;
+		if ((word1[i] == '1' and word2[i] == '0' and g0 == 0)) l = 1;
+		else if (l0 == 1) l = 1;
+		else l = 0;
+		g0 = g;
+		l0 = l;
+	}
+
+	if (g == 1 and l == 0) return true;
+	if (g == 0 and l == 1) return false;
+	if (g == 0 and l == 0) return false;
+}
+
+void Matrix::SearchUp(int index) {
+	string word = this->GetWord(index);
+	string word1 = word;
+	string word2;
+	vector<int> indexs;
+	for (int i = 0; i < 16; i++) {
+		if (i != index) {
+			word2 = this->GetWord(i);
+			if (search(word1, word2)) {
+				indexs.push_back(i);
+			}
+		}
+	}
+
+	if (indexs.size() == 0) {
+		cout << "no results" << endl;
+		return;
+	}
+	for (int i = 0; i < indexs.size(); i++) {
+		word1 = this->GetWord(indexs[i]);
+		for (int j = 0; j < indexs.size(); j++) {
+			if (i != j) {
+				word2 = this->GetWord(indexs[j]);
+				if (search(word1, word2)) {
+					indexs.erase(indexs.begin() + j);
+					j--;
+				}
+			}
+		}
+	}
+
+	if (indexs.size() == 2) {
+		word1 = this->GetWord(indexs[0]);
+		word2 = this->GetWord(indexs[1]);
+		if (search(word1, word2)) {
+			cout << word << endl;
+			cout << word1 << endl;
+			return;
+		}
+		if (search(word2, word1)) {
+			cout << word << endl;
+			cout << word2 << endl;
+			return;
+		}
+		cout << word << endl;
+		cout << word1 << endl;
+	}
+
+	cout << word << endl;
+	cout << this->GetWord(indexs[0]);
+}
+
+
+void Matrix::SearchDown(int index) {
+	string word = this->GetWord(index);
+	string word1 = word;
+	string word2;
+	vector<int> indexs;
+	for (int i = 0; i < 16; i++) {
+		if (i != index) {
+			word2 = this->GetWord(i);
+			if (search(word2, word1)) {
+				indexs.push_back(i);
+			}
+		}
+	}
+
+	if (indexs.size() == 0) {
+		cout << "no results" << endl;
+		return;
+	}
+	for (int i = 0; i < indexs.size(); i++) {
+		word1 = this->GetWord(indexs[i]);
+		for (int j = 0; j < indexs.size(); j++) {
+			if (i != j) {
+				word2 = this->GetWord(indexs[j]);
+				if (search(word2, word1)) {
+					indexs.erase(indexs.begin() + j);
+					j--;
+				}
+			}
+		}
+	}
+
+	if (indexs.size() == 2) {
+		word1 = this->GetWord(indexs[0]);
+		word2 = this->GetWord(indexs[1]);
+		if (search(word1, word2)) {
+			cout << word << endl;
+			cout << word1 << endl;
+			return;
+		}
+		if (search(word2, word1)) {
+			cout << word << endl;
+			cout << word2 << endl;
+			return;
+		}
+		cout << word << endl;
+		cout << word1 << endl;
+	}
+
+	cout << "input word: " << word << endl;
+	cout << "result: " << this->GetWord(indexs[0]) << endl;
+}
