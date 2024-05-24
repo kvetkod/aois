@@ -15,10 +15,8 @@ string Matrix::GetWord(int index) {
 	int i = index, j = index;
 	string result;
 	for (i; i < 16; i++) {
-		//for (j; j < 16; j++) {
 			if (table[i][j] == 0) result.push_back('0');
 			if (table[i][j] == 1) result.push_back('1');
-		//}
 	}
 	if (result.size() < 16) {
 		for (i = 0; i < index; i++) {

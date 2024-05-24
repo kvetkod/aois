@@ -47,7 +47,7 @@ int HashTable::search(int h, int index, int key) {
 void HashTable::Update(string v_key, string value, string info) {
 	int key = static_cast<int>(v_key[0] + 64) * 33 + static_cast<int>(v_key[1] + 32);
 	int hash = key % size;
-	if (table[hash].GetKey() != key) cout << "На ключ " << key << " нет ячейки" << endl;///////////////
+	if (table[hash].GetKey() != key) cout << "На ключ " << key << " нет ячейки" << endl;
 	else if(table[hash].GetKey() == key and table[hash].GetValue() == v_key) {
 		if (table[hash].GetIsNotOne()) {
 			if (table[hash].GetTerminal()) {
@@ -84,9 +84,6 @@ void HashTable::Update(string v_key, string value, string info) {
 				}
 			}
 		}
-		//Node a(value, info, key);
-		//table[hash] = a;
-		////table[hash].SetIsNotOne();
 	}
 }
 
