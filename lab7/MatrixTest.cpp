@@ -210,7 +210,10 @@ namespace Tests
 
 			a.Sum("011");
 			a.Sum("111");
-			Assert::AreEqual(a.GetWord(0)[11], '0');
+			Assert::AreEqual(a.GetWord(0)[12], '1');
+			Assert::AreEqual(a.GetWord(0)[13], '0');
+			Assert::AreEqual(a.GetWord(0)[14], '1');
+			Assert::AreEqual(a.GetWord(0)[15], '1');
 		}
 
 		TEST_METHOD(SearchUpTest) {
@@ -241,9 +244,21 @@ namespace Tests
 			char b = output[0];
 
 			Assert::AreEqual(b, '1');
-			
-			//a.SearchUp(5);
-			//a.SearchDown(1);
+			Assert::AreEqual(output[1], '0');
+			Assert::AreEqual(output[2], '1');
+			Assert::AreEqual(output[3], '1');
+			Assert::AreEqual(output[4], '1');
+			Assert::AreEqual(output[5], '1');
+			Assert::AreEqual(output[6], '1');
+			Assert::AreEqual(output[7], '1');
+			Assert::AreEqual(output[8], '0');
+			Assert::AreEqual(output[9], '0');
+			Assert::AreEqual(output[10], '1');
+			Assert::AreEqual(output[11], '1'); 
+			Assert::AreEqual(output[12],'1');
+			Assert::AreEqual(output[13], '1');
+			Assert::AreEqual(output[14], '0');
+			Assert::AreEqual(output[15], '1');
 		}
 
 		TEST_METHOD(SearchUpTest2) {
@@ -274,6 +289,21 @@ namespace Tests
 			char b = output[0];
 
 			Assert::AreEqual(b, '1');
+			Assert::AreEqual(output[1], '0');
+			Assert::AreEqual(output[2], '0');
+			Assert::AreEqual(output[3], '1');
+			Assert::AreEqual(output[4], '0');
+			Assert::AreEqual(output[5], '0');
+			Assert::AreEqual(output[6], '0');
+			Assert::AreEqual(output[7], '1');
+			Assert::AreEqual(output[8], '0');
+			Assert::AreEqual(output[9], '1');
+			Assert::AreEqual(output[10], '0');
+			Assert::AreEqual(output[11], '1');
+			Assert::AreEqual(output[12], '1');
+			Assert::AreEqual(output[13], '0');
+			Assert::AreEqual(output[14], '1');
+			Assert::AreEqual(output[15], '1');
 		}
 
 		TEST_METHOD(SearchDownTest) {
@@ -304,6 +334,21 @@ namespace Tests
 			char b = output[12];
 
 			Assert::AreEqual(b, '1');
+			Assert::AreEqual(output[1], '0');
+			Assert::AreEqual(output[2], '1');
+			Assert::AreEqual(output[3], '1');
+			Assert::AreEqual(output[4], '1');
+			Assert::AreEqual(output[5], '1');
+			Assert::AreEqual(output[6], '1');
+			Assert::AreEqual(output[7], '1');
+			Assert::AreEqual(output[8], '0');
+			Assert::AreEqual(output[9], '0');
+			Assert::AreEqual(output[10], '1');
+			Assert::AreEqual(output[11], '1');
+			Assert::AreEqual(output[12], '1');
+			Assert::AreEqual(output[13], '1');
+			Assert::AreEqual(output[14], '0');
+			Assert::AreEqual(output[15], '1');
 		}
 	};
 }
